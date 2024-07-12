@@ -26,10 +26,13 @@ class AuthController extends Controller
 
         $token = $user->createToken($request['email']);
 
-        return [
-            'user' => $user,
-            'token' => $token->plainTextToken
-        ];
+        return response()->json(
+            [
+                'user' => $user,
+                'token' => $token->plainTextToken
+            ],
+            201
+        );
     }
 
     public function login(LoginUserRequest $request)
@@ -44,18 +47,19 @@ class AuthController extends Controller
 
         $token = $user->createToken($user->email);
 
-        return [
-            'user' => $user,
-            'token' => $token->plainTextToken
-        ];
+        return response()->json(
+            [
+                'user' => $user,
+                'token' => $token->plainTextToken
+            ],
+            200
+        );
     }
 
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
 
-        return [
-            'message' => 'You are logged out.'
-        ];
+        return response()->json(null, 204);
     }
 }
