@@ -10,7 +10,7 @@ class ProfileController extends Controller
 {
     public function show($id)
     {
-        $profile = User::find($id);
+        $profile = User::with(['isFollowed'])->withCount(['posts', 'followers', 'followings'])->where('id', $id)->firstOrFail();
         return response()->json($profile);
     }
 
