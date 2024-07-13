@@ -13,10 +13,8 @@ Route::post("/register", [AuthController::class, "register"]);
 Route::post("/login", [AuthController::class, "login"]);
 Route::post("/logout", [AuthController::class, "logout"])->middleware('auth:sanctum');
 
-
+Route::apiResource("/posts", PostController::class)->middleware("auth:sanctum");
 Route::prefix("posts")->group(function () {
-    Route::apiResource("/", PostController::class);
-
     //like
     Route::get("/{id}/likes", [LikeController::class,"index"]);
     Route::post("/likes", [LikeController::class,"store"]);
@@ -32,5 +30,5 @@ Route::middleware('auth:sanctum')->prefix('users/{user}')->group(function () {
     Route::post('/follow', [FollowerController::class, 'follow']);
     Route::post('/unfollow', [FollowerController::class, 'unfollow']);
     Route::get('/followers', [FollowerController::class, 'followers']);
-    Route::get('/following', [FollowerController::class, 'following']);
+    Route::get('/followings', [FollowerController::class, 'followings']);
 });

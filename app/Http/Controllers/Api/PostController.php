@@ -8,19 +8,9 @@ use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use Illuminate\Routing\Controllers\Middleware;
-use Illuminate\Routing\Controllers\HasMiddleware;
 
-class PostController extends Controller implements HasMiddleware
+class PostController extends Controller
 {
-
-    public static function middleware()
-    {
-        return [
-            new Middleware("auth:sanctum", except: ["index", "show"])
-        ];
-    }
-
     /**
      * Display a listing of the resource.
      */

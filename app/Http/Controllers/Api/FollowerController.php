@@ -17,11 +17,15 @@ class FollowerController extends Controller
             return response()->json(['message' => 'You cannot follow yourself'], 400);
         }
 
-        if ($follower->following()->where('user_id', $user->id)->exists()) {
+        if ($follower->followings()->where('user_id', $user->id)->exists()) {
             return response()->json(['message' => 'You are already following this user'], 409);
         }
 
-        $follower->following()->attach($user->id);
+        $follower->followings()->attach($userId);
+        // $user->followers()->attach($follower->id);
+        // $data = [
+        //     "user_id" => $
+        // ]
 
         return response()->json(['message' => 'Successfully followed the user'], 201);
     }
@@ -32,11 +36,11 @@ class FollowerController extends Controller
         $user = User::findOrFail($userId);
         $follower = $request->user();
 
-        if (!$follower->following()->where('user_id', $user->id)->exists()) {
+        if (!$follower->followings()->where('user_id', $user->id)->exists()) {
             return response()->json(['message' => 'You are not following this user'], 409);
         }
 
-        $follower->following()->detach($user->id);
+        $follower->followings()->detach($user->id);
 
         return response()->json(['message' => 'Successfully unfollowed the user'], 200);
     }
@@ -50,11 +54,11 @@ class FollowerController extends Controller
     }
 
 
-    public function following($userId)
+    public function followings($userId)
     {
         $user = User::findOrFail($userId);
-        $following = $user->following;
+        $followings = $user->followings;
 
-        return response()->json($following);
+        return response()->json($followings);
     }
 }
