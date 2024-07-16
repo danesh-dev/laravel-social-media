@@ -14,7 +14,8 @@ services:
 
   db:
     container_name: db
-    image: postgres:latest
+    image: postgres
+    restart: always
     ports:
       - "5432:5432"
     environment:
@@ -28,6 +29,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
 
 volumes:
   dbdata: {}

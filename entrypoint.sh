@@ -17,25 +17,10 @@ until pg_isready -h db -U "${DB_USERNAME}"; do
   sleep 2
 done
 
-# Create a new PostgreSQL user and database if they don't exist
-psql -h db -U postgres -tc "SELECT 1 FROM pg_roles WHERE rolname='${DB_USERNAME}'" | grep -q 1 || psql -h db -U postgres -c "CREATE USER ${DB_USERNAME} WITH PASSWORD '${DB_PASSWORD}';"
-psql -h db -U postgres -tc "SELECT 1 FROM pg_database WHERE datname='${DB_DATABASE}'" | grep -q 1 || psql -h db -U postgres -c "CREATE DATABASE ${DB_DATABASE};"
-psql -h db -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE ${DB_DATABASE} TO ${DB_USERNAME};"
+php artisan migrate --force
 
-# Run migrations and check if they were successful
-echo "Running migrations..."
-if php artisan migrate --force; then
-  echo "Migrations completed successfully."
-else
-  echo "Migrations failed."
-  exit 1
-fi
-
-# Generate application key
 php artisan key:generate --force
 
-# Start the Laravel development server
 php artisan serve --port=$PORT --host=0.0.0.0 --env=.env
 
-# Execute the main container command
 exec docker-php-entrypoint "$@"

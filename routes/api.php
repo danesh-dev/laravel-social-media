@@ -8,18 +8,18 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\FollowerController;
 
-//authentication user
+//user authentication
 Route::post("/register", [AuthController::class, "register"]);
 Route::post("/login", [AuthController::class, "login"]);
 Route::post("/logout", [AuthController::class, "logout"])->middleware('auth:sanctum');
 
 Route::apiResource("/posts", PostController::class)->middleware("auth:sanctum");
+
 Route::prefix("posts")->group(function () {
     //like
-    Route::get("/{id}/likes", [LikeController::class,"index"]);
-    Route::post("/likes", [LikeController::class,"store"]);
-    Route::delete("/likes", [LikeController::class,"destroy"]);
-
+    Route::get("/{id}/likes", [LikeController::class, "index"]);
+    Route::post("/likes", [LikeController::class, "store"]);
+    Route::delete("/likes", [LikeController::class, "destroy"]);
 });
 
 Route::middleware('auth:sanctum')->prefix('users/{user}')->group(function () {
