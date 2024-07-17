@@ -10,6 +10,14 @@ COPY . .
 
 RUN chown -R www-data:www-data /var/www/html
 
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+# Copy entrypoint script
+COPY entrypoint.sh /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/
+# Make entrypoint script executable
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Use entrypoint script
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+
+# Expose port 80
+EXPOSE 80
