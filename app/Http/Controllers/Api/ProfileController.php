@@ -17,8 +17,9 @@ class ProfileController extends Controller
 
     public function update(Request $request, $id)
     {
-        Gate::authorize("update", $id);
         $profile = User::findOrFail($id);
+
+        Gate::authorize('update', $profile);
         $profile->update($request->all());
 
         return response()->json($profile);
@@ -26,8 +27,9 @@ class ProfileController extends Controller
 
     public function destroy($id)
     {
-        Gate::authorize("delete", $id);
-        $profile = User::find($id);
+        $profile = User::findOrFail($id);
+
+        Gate::authorize('delete', $profile);
 
         $profile->delete();
     }

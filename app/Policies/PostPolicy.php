@@ -11,10 +11,14 @@ class PostPolicy
     /**
      * Determine whether the user can modify the post
      */
-    public function modify(User $user, Post $post): Response
+    public function update(User $user, Post $post): Response
     {
-        return $user->id === $post->user_id ? Response::allow() : Response::deny("You do not own this post");
+        return $user->id === $post->user_id ? Response::allow() : Response::denyAsNotFound();
     }
 
+    public function delete(User $user, Post $post): Response
+    {
+        return $user->id === $post->user_id ? Response::allow() : Response::denyAsNotFound();
+    }
 
 }

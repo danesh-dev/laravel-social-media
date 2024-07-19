@@ -13,19 +13,15 @@ class FollowerController extends Controller
         $user = User::findOrFail($userId);
         $follower = $request->user();
 
-        if ($user->id === $follower->id) {
+        if ($user->id === $follower->id)
             return response()->json(['message' => 'You cannot follow yourself'], 400);
-        }
 
-        if ($follower->followings()->where('user_id', $user->id)->exists()) {
+
+        if ($user->isFollowed)
             return response()->json(['message' => 'You are already following this user'], 409);
-        }
+
 
         $follower->followings()->attach($userId);
-        // $user->followers()->attach($follower->id);
-        // $data = [
-        //     "user_id" => $
-        // ]
 
         return response()->json(['message' => 'Successfully followed the user'], 201);
     }
@@ -36,9 +32,11 @@ class FollowerController extends Controller
         $user = User::findOrFail($userId);
         $follower = $request->user();
 
-        if (!$follower->followings()->where('user_id', $user->id)->exists()) {
+        if ($user->id === $follower->id)
+            return response()->json(['message' => 'You cannot follow yourself'], 400);
+
+        if (!$user->isFollowed)
             return response()->json(['message' => 'You are not following this user'], 409);
-        }
 
         $follower->followings()->detach($user->id);
 

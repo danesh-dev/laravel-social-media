@@ -49,7 +49,7 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        Gate::authorize("modify", $post);
+        Gate::authorize("update", $post);
 
         $data = [
             "title"=> $request->title,
@@ -66,7 +66,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        Gate::authorize("modify", $post);
+        Gate::authorize("delete", $post);
         $post->delete();
     }
 }
