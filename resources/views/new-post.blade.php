@@ -10,6 +10,15 @@
 
         <form action="/posts" method="POST" enctype="multipart/form-data">
             @csrf
+            @if ($errors->any())
+                <div class="alert alert-warning">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" name="title" placeholder="Enter post title">
@@ -20,7 +29,7 @@
             </div>
             <div class="form-group my-3">
                 <label for="image">Image</label>
-                <input type="file" class="form-control-file" name="file" id="image">
+                <input type="file" name="image" class="form-control-file" id="image">
             </div>
             <button type="submit" class="btn btn-primary btn-block d-grid gap-2 col-10 mx-auto mt-4">Submit</button>
         </form>

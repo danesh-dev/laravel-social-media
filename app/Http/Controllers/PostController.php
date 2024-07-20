@@ -30,11 +30,15 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        // todo implement image
         $data = [
             "title" => $request->title,
             "caption" => $request->caption,
         ];
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            $data['image'] = $imagePath;
+        }
 
         $post = $request->user()->posts()->create($data);
 

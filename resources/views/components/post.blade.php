@@ -3,7 +3,7 @@
         <div class="col-10 col-md-8 mx-auto">
             <div class="card">
                 @if (!empty($post->image))
-                    <img src="{{ $post->image }}" class="card-img-top" alt="Post Image">
+                    <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" alt="Post Image">
                 @endif
                 <div class="card-body">
                     <h6 class="card-subtitle mb-2 text-light">{{ '@' . $post->user->username }} ·
@@ -14,6 +14,7 @@
 
                     <a href="#" class="text-decoration-none text-light" id="like-unlike-{{ $post->id }}"
                         onclick="toggleLike({{ $post->id }})">
+
                         @if ($post->likes->where('user_id', auth()->id())->first())
                             <i class="fa fa-thumbs-up text-info"></i> Unlike
                         @else

@@ -24,7 +24,7 @@ class StorePostRequest extends FormRequest
         return [
             "title" => "required|max:255",
             "caption"=> "sometimes",
-            // "image" => "sometimes|image"
+            "image" => "sometimes|nullable|image|mimes:jpeg,png,jpg,gif"
         ];
     }
 }
