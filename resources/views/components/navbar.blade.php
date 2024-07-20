@@ -6,7 +6,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
             @auth
-                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-plus-circle"></i> New Post</a></li>
+                <li class="nav-item"><a class="nav-link" href="/posts/create"><i class="fas fa-plus-circle"></i> New Post</a></li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-envelope"></i> Messages</a></li>
                 <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a></li>
                 <li class="nav-item dropdown-center">

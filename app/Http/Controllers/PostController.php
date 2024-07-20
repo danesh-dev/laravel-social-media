@@ -20,6 +20,10 @@ class PostController extends Controller
         return view("home", compact("posts"));
     }
 
+    public function create(){
+        return view("new-post");
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -33,7 +37,7 @@ class PostController extends Controller
 
         $post = $request->user()->posts()->create($data);
 
-        return new PostResource($post);
+        return redirect()->route("home")->with("success","Post created successfully");
     }
 
     /**
