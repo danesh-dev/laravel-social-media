@@ -38,28 +38,10 @@ class AuthController extends Controller
 
     public function register(RegisterUserRequest $request)
     {
-        // dd($request->all());
-        // $data = $request->validated([
-        //     "name" => "required|max:255",
-        //     "email"=> "required|email|unique:users",
-        //     "username" => "required|unique:users|max:255",
-        //     "bio" => "max:500",
-        //     "password"=> "required"
-        // ]);
-
-        // $user = User::create([
-        //     "name" => $data['name'],
-        //     "username" => $data['username'],
-        //     "email" => $data['email'],
-        //     "bio" => $data['bio'],
-        //     "password" => Hash::make($data['password']), // Hash the password
-        // ]);
-
-        // dd($request);
         $user = User::create($request->all());
         Auth::login($user);
 
-        return redirect()->route('home')->with('success', 'Registration successful');
+        return redirect()->route('home')->with('success', 'You Are Successfully Registered ');
     }
 
     public function logout(Request $request)

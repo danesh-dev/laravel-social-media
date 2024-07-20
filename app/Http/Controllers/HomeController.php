@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function index()
+    {
+        $posts = Post::with('user')->latest()->get();
 
-        $posts = Post::paginate(10);
-        return view("home", compact("posts"));
-
+        return view('home', compact('posts'));
     }
 }

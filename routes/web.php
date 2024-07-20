@@ -8,9 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('home');
-})->name("home");
+Route::get('/',[PostController::class, 'index'] )->name("home");
 
 
 //auth
