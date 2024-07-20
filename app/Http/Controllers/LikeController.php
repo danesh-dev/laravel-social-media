@@ -21,40 +21,31 @@ class LikeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(LikeRequest $request)
+    public function store($id)
     {
-        $like = Like::where("user_id", auth('sanctum')->id())
-            ->where("post_id", $request->post_id)->first();
 
-        if (!$like) {
-            $data = [
-                "user_id" => auth('sanctum')->id(),
-                "post_id" => $request->post_id,
-            ];
+        $data = [
+            "user_id" => auth()->id(),
+            "post_id" => $id,
+        ];
 
+        $like = Like::create($data);
 
-            $like = Like::create($data);
-        } else
-            return response()->json(
-                [
-                    'message' => 'already liked'
-                ],
-                409
-            );
-
+        return response()->json(['status' => 'liked']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(LikeRequest $request)
+    public function destroy($id)
     {
         $like = Like::where("user_id", auth('sanctum')->id())
-            ->where("post_id", $request->post_id)->first();
+            ->where("post_id", $id)->first();
 
-        if ($like)
+        if ($like) {
             $like->delete();
-        else
+            return response()->json(['status' => 'unliked']);
+        } else
             abort(404);
     }
 }

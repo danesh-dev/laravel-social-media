@@ -22,12 +22,11 @@ Route::middleware("auth")->group(function () {
     Route::resource("/posts", PostController::class);
 });
 
-// Route::prefix("posts")->middleware('auth')->group(function () {
-//     //like
-//     Route::get("/{id}/likes", [LikeController::class, "index"]);
-//     Route::post("/likes", [LikeController::class, "store"]);
-//     Route::delete("/likes", [LikeController::class, "destroy"]);
-// });
+Route::prefix("posts/{id}")->middleware('auth')->group(function () {
+    //like
+    Route::post("/likes", [LikeController::class, "store"]);
+    Route::delete("/likes", [LikeController::class, "destroy"]);
+});
 
 // Route::middleware('auth')->prefix('users/{user}')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'show']);

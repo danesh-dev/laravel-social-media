@@ -1,28 +1,28 @@
-<?php
-
 namespace App\View\Components;
 
-use Closure;
-use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use App\Models\Post;
 
 class Post extends Component
 {
-    public $image;
-    public $title;
-    public $username;
-    public $time;
-    public $caption;
+    public Post $post;
 
-    public function __construct($image, $title, $username, $time, $caption)
+    /**
+     * Create a new component instance.
+     *
+     * @param Post $post
+     * @return void
+     */
+    public function __construct(Post $post)
     {
-        $this->image = $image;
-        $this->title = $title;
-        $this->username = $username;
-        $this->time = $time;
-        $this->caption = $caption;
+        $this->post = $post;
     }
 
+    /**
+     * Get the view / contents that represent the component.
+     *
+     * @return \Illuminate\View\View|string
+     */
     public function render()
     {
         return view('components.post');
