@@ -8,7 +8,7 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN chown -R www-data:www-data /var/www/html
+# RUN chown -R www-data:www-data /var/www/html
 
 # Copy entrypoint script
 COPY entrypoint.sh /usr/local/bin/
