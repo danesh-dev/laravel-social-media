@@ -87,7 +87,11 @@ body {
 }
 
 .bio {
-    color: #e0e0e0;
+    color: #ccc;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 150px;
+    overflow: auto;
 }
 
 .card-img-top {

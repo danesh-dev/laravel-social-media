@@ -78,4 +78,9 @@ class PostController extends Controller
         Gate::authorize("delete", $post);
         $post->delete();
     }
+
+    public function userPosts($userId){
+        $posts = Post::where("user_id", $userId)->get();
+        return view("", compact(""));
+    }
 }

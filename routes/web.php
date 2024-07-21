@@ -28,13 +28,13 @@ Route::prefix("posts/{id}")->middleware('auth')->group(function () {
     Route::delete("/likes", [LikeController::class, "destroy"]);
 });
 
-// Route::middleware('auth')->prefix('users/{user}')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'show']);
-//     Route::put('/profile', [ProfileController::class, 'update']);
-//     Route::delete('/profile', [ProfileController::class, 'destroy']);
+Route::middleware('auth')->prefix('users/{user}')->group(function () {
+    Route::get('/', [ProfileController::class, 'show']);
+    // Route::put('/profile', [ProfileController::class, 'update']);
+    // Route::delete('/profile', [ProfileController::class, 'destroy']);
 
-//     Route::post('/follow', [FollowerController::class, 'follow']);
-//     Route::post('/unfollow', [FollowerController::class, 'unfollow']);
-//     Route::get('/followers', [FollowerController::class, 'followers']);
-//     Route::get('/followings', [FollowerController::class, 'followings']);
-// });
+    Route::post('/follow', [FollowerController::class, 'follow']);
+    Route::post('/unfollow', [FollowerController::class, 'unfollow']);
+    Route::get('/followers', [FollowerController::class, 'followers']);
+    Route::get('/followings', [FollowerController::class, 'followings']);
+});

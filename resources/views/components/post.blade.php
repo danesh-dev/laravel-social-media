@@ -6,21 +6,24 @@
                     <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" alt="Post Image">
                 @endif
                 <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-light">{{ '@' . $post->user->username }} ·
-                        {{ $post->created_at->diffForHumans() }}</h6>
+                    <h6 class="card-subtitle mb-2 text-light">
+                        <a href="/users/{{$post->user->id}}" class="text-decoration-none">{{ '@' . $post->user->username }} </a>·
+                        {{ $post->created_at->diffForHumans() }}
+                    </h6>
                     <hr class="text-light">
                     <h5 class="card-title">{{ $post->title }}</h5>
                     <p class="card-text">{{ $post->caption }}</p>
 
-                    <a href="#" class="text-decoration-none text-light" id="like-unlike-{{ $post->id }}"
-                        onclick="toggleLike({{ $post->id }})">
-
-                        @if ($post->likes->where('user_id', auth()->id())->first())
-                            <i class="fa fa-thumbs-up text-info"></i> Unlike
-                        @else
-                            <i class="fa fa-thumbs-up text-light"></i> Like
-                        @endif
-                    </a>
+                    @auth
+                        <a href="#" class="text-decoration-none text-light" id="like-unlike-{{ $post->id }}"
+                            onclick="toggleLike({{ $post->id }})">
+                            @if ($post->likes->where('user_id', auth()->id())->first())
+                                <i class="fa fa-thumbs-up text-info"></i> Unlike
+                            @else
+                                <i class="fa fa-thumbs-up text-light"></i> Like
+                            @endif
+                        </a>
+                    @endauth
                 </div>
             </div>
         </div>
