@@ -24,16 +24,18 @@
                     <div class="alert alert-danger">{{ $error }}</div>
                 @endforeach
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"
                     required>
             </div>
-            <button type="submit" class="btn btn-primary btn-block mt-4">Login</button>
+            <div class="row position-relative col-10 mx-auto mt-2">
+                <button type="submit" class="btn btn-primary btn-block mt-4">Login</button>
+            </div>
         </form>
     @endcomponent
 @endsection
