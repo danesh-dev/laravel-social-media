@@ -8,7 +8,7 @@
             <button class="btn btn-primary mr-2">Follow</button>
             <button class="btn btn-success">Message</button>
         @else
-            <button class="btn btn-warning">Edit</button>
+            <a class="btn btn-warning" href="{{route("profile.edit")}}">Edit</a>
         @endif
     </div>
 </div>

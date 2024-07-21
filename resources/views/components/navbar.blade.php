@@ -14,9 +14,9 @@
                         <i class="fas fa-user"></i> {{auth()->user()->username}}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">My Profile</a></li>
-                        <li><a class="dropdown-item" href="#">My Posts</a></li>
-                        <li><a class="dropdown-item" href="#">Edit Account</a></li>
+                        <li><a class="dropdown-item" href="/users/{{auth()->user()->id}}">My Profile</a></li>
+                        {{-- <li><a class="dropdown-item" href="#">My Posts</a></li> --}}
+                        <li><a class="dropdown-item" href="{{route('profile.edit')}}">Edit Account</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>

@@ -1,7 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Profile')
+@section('title', 'Social Media')
 
 @section('content')
-    {{-- todo for update user profile --}}
+
+    <x-profile :user="$user" />
+
+    <div class="container">
+        @foreach ($posts as $post)
+            <x-post :post="$post" />
+        @endforeach
+    </div>
+
 @endsection
+

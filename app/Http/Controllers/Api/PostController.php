@@ -24,7 +24,6 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        // todo implement image
         $data = [
             "title"=> $request->title,
             "caption"=> $request->caption,

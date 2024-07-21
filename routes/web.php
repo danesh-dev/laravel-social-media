@@ -8,7 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\HomeController;
 
-Route::get('/',[PostController::class, 'index'] )->name("home");
+Route::get('/', [PostController::class, 'index'])->name("home");
 
 
 //auth
@@ -20,6 +20,11 @@ Route::get("/logout", [AuthController::class, "logout"])->middleware('auth');
 
 Route::middleware("auth")->group(function () {
     Route::resource("/posts", PostController::class);
+
+    //profile
+    Route::get('profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('profile/delete', [ProfileController::class, 'destroy'])->name('profile.delete');
 });
 
 Route::prefix("posts/{id}")->middleware('auth')->group(function () {
@@ -30,8 +35,6 @@ Route::prefix("posts/{id}")->middleware('auth')->group(function () {
 
 Route::middleware('auth')->prefix('users/{user}')->group(function () {
     Route::get('/', [ProfileController::class, 'show']);
-    // Route::put('/profile', [ProfileController::class, 'update']);
-    // Route::delete('/profile', [ProfileController::class, 'destroy']);
 
     Route::post('/follow', [FollowerController::class, 'follow']);
     Route::post('/unfollow', [FollowerController::class, 'unfollow']);
