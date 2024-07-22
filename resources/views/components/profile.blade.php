@@ -7,6 +7,13 @@
     <h2 class="text-white">{{ '@' . $user->username }}</h2>
     <h4 class="text-secondary">{{ $user->name }}</h4>
     <p class="bio">{{ $user->bio }}</p>
+
+    <div class=" text-white">
+        <span>Posts: {{$user->posts_count}}  </span>
+        <span>Followers: {{$user->followers_count}}  </span>
+        <span>Followings: {{$user->followings_count}}  </span>
+    </div>
+
     <div class="mt-3">
         @if ($user->id !== auth()->id())
             <button id="follow-unfollow-{{ $user->id }}" class="btn {{ $isFollowed ? 'btn-warning' : 'btn-primary' }}" onclick="toggleFollow({{ $user->id }})">
