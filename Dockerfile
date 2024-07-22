@@ -13,6 +13,8 @@ COPY . .
 # Copy entrypoint script
 COPY entrypoint.sh /usr/local/bin/
 
+COPY custom-php.ini /usr/local/etc/php/conf.d/
+
 # Make entrypoint script executable
 RUN chmod +x /usr/local/bin/entrypoint.sh
 

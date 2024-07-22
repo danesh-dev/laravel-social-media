@@ -21,7 +21,6 @@ Route::get("/logout", [AuthController::class, "logout"])->middleware('auth');
 Route::middleware("auth")->group(function () {
     Route::resource("/posts", PostController::class);
 
-    //profile
     Route::get('profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('profile/delete', [ProfileController::class, 'destroy'])->name('profile.delete');
@@ -36,8 +35,8 @@ Route::prefix("posts/{id}")->middleware('auth')->group(function () {
 Route::middleware('auth')->prefix('users/{user}')->group(function () {
     Route::get('/', [ProfileController::class, 'show']);
 
-    Route::post('/follow', [FollowerController::class, 'follow']);
-    Route::post('/unfollow', [FollowerController::class, 'unfollow']);
+    Route::post('/follow', [FollowerController::class, 'follow'])->name('follow');
+    Route::delete('/unfollow', [FollowerController::class, 'unfollow'])->name('unfollow');
     Route::get('/followers', [FollowerController::class, 'followers']);
     Route::get('/followings', [FollowerController::class, 'followings']);
 });

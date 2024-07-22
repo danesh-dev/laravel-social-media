@@ -14,10 +14,12 @@ class ProfileController extends Controller
 
     public function show($id)
     {
-
         $user = User::findOrFail($id);
         $posts = Post::where("user_id", $id)->get();
+        $isFollowed = $user->isFollowed();
+
         return view("profile", compact("user", "posts"));
+        //todo count of posts, followers, followings
     }
 
     public function edit(){
