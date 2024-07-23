@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @include('components.navbar')
 
     @if (session('success'))

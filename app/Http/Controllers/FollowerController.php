@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Events\UserFollowed;
 use Illuminate\Http\Request;
+use App\Events\UserUnFollowed;
 
 class FollowerController extends Controller
 {
@@ -15,6 +17,9 @@ class FollowerController extends Controller
             $follower = User::findOrFail(auth()->id());
 
             $follower->followings()->attach($userId);
+            $followerCount = $user->followers()->count();
+
+            event(new UserFollowed($user->id, $followerCount));
 
             return response()->json(['status' => 'followed']);
         // }
@@ -29,6 +34,10 @@ class FollowerController extends Controller
             $follower = User::findOrFail(auth()->id());
 
             $follower->followings()->detach($user->id);
+            $followerCount = $user->followers()->count();
+
+            event(new UserUnFollowed($user->id, $followerCount));
+
 
             return response()->json(['status' => 'unfollowed']);
         }
