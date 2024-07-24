@@ -1,4 +1,5 @@
-<div class="chat-msg">
+
+<div class="chat-msg owner">
     <div class="chat-msg-profile">
         <div class="chat-msg-date">{{ $message->created_at->diffForHumans() }}</div>
     </div>

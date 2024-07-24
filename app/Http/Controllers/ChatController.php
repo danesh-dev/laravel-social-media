@@ -19,13 +19,23 @@ class ChatController extends Controller
 
     public function createChat($userId)
     {
-        // $user2 = User::findOrFail($request->user_id);
+        $authUserId = Auth::id();
 
-        $chat = Chat::create([
-            'user1_id' => Auth::id(),
-            'user2_id' => $userId,
-        ]);
+        $chat = Chat::where(function ($query) use ($authUserId, $userId) {
+            $query->where('user1_id', $authUserId)
+                ->orWhere('user2_id', $authUserId);
+        })->where(function ($query) use ($userId) {
+            $query->where('user1_id', $userId)
+                ->orWhere('user2_id', $userId);
+        })->first();
 
-        return redirect()->route('chat.index');
+        if (!$chat) {
+            $chat = Chat::create([
+                'user1_id' => $authUserId,
+                'user2_id' => $userId
+            ]);
+        }
+
+        return redirect()->route('chat.show', $chat->id);
     }
 }

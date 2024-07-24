@@ -14,18 +14,20 @@
         <span class="mx-1">Followings: {{ $user->followings_count }}</span>
     </div>
 
-    <div class="mt-3 d-flex">
+    <div class="mt-3 ">
         @if ($user->id !== auth()->id())
             <button id="follow-unfollow-{{ $user->id }}"
                 class="btn {{ $isFollowed ? 'btn-warning' : 'btn-primary' }}"
                 onclick="toggleFollow({{ $user->id }})">
                 {{ $isFollowed ? 'Unfollow' : 'Follow' }}
             </button>
+            <button class="btn btn-success"  onclick="document.getElementById('hidden-post-form').submit();"> Message</button>
 
-            <form action="{{ route('chat.create', $user->id) }}" method="POST">
+            <form id="hidden-post-form" action="{{route('chat.create', $user->id)}}" method="POST" class="hidden-form">
                 @csrf
-                <button class="btn btn-success" type="submit" id="message-btn1">Message</button>
+                <input type="hidden" name="user_id" value="{{ $user->id }}">
             </form>
+
         @else
             <a class="btn btn-warning" href="{{ route('profile.edit') }}">Edit</a>
         @endif
@@ -90,8 +92,7 @@
                 type: 'POST',
                 data: null,
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                        'content') // CSRF token for Laravel
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 success: function(response) {
                     console.log('post req- ', response);

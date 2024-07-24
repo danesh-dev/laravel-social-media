@@ -13,10 +13,14 @@ class MessageController extends Controller
     public function show(Chat $chat)
     {
         Gate::authorize('view', $chat);
+        $friend = $chat->user1_id === auth()->id() ? $chat->user2 : $chat->user1;
 
+        $chats = Chat::where('user1_id', auth()->id())->orWhere('user2_id', auth()->id())->get();
         $messages = $chat->messages()->with('user')->get();
 
-        return response()->json($messages);
+        // return response()->json($messages);
+
+        return view('chat', compact('messages', 'chats', 'friend'));
     }
 
     public function store(Request $request, Chat $chat)
