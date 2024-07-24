@@ -37,11 +37,9 @@
     Echo.channel('user.' + userId)
         .listen('.UserFollowed', (e) => {
             followersCountElement.textContent = 'Followers: ' + e.followerCount;
-            console.log('user followed');
         })
         .listen('.UserUnFollowed', (e) => {
             followersCountElement.textContent = 'Followers: ' + e.followerCount;
-            console.log('user un followed');
 
         });
 </script>

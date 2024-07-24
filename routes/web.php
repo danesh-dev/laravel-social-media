@@ -40,3 +40,7 @@ Route::middleware('auth')->prefix('users/{user}')->group(function () {
     Route::get('/followers', [FollowerController::class, 'followers']);
     Route::get('/followings', [FollowerController::class, 'followings']);
 });
+
+Route::get("/chat", function(){
+    return view("chat");
+})->name("chat");

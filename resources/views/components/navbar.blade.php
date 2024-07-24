@@ -7,7 +7,7 @@
         <ul class="navbar-nav ms-auto">
             @auth
                 <li class="nav-item"><a class="nav-link" href="/posts/create"><i class="fas fa-plus-circle"></i> New Post</a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-envelope"></i> Messages</a></li>
+                <li class="nav-item"><a class="nav-link" href="/chat"><i class="fas fa-envelope"></i> Messages</a></li>
                 <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a></li>
                 <li class="nav-item dropdown-center">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
