@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Chat;
 use App\Models\Post;
 use App\Models\User;
+use App\Policies\ChatPolicy;
 use App\Policies\PostPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Gate;
@@ -25,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::policy(User::class, UserPolicy::class);
-        Gate::define(Post::class, PostPolicy::class);
+        Gate::policy(Post::class, PostPolicy::class);
+        Gate::policy(Chat::class, ChatPolicy::class);
     }
 }

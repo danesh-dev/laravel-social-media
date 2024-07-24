@@ -14,14 +14,18 @@
         <span class="mx-1">Followings: {{ $user->followings_count }}</span>
     </div>
 
-    <div class="mt-3">
+    <div class="mt-3 d-flex">
         @if ($user->id !== auth()->id())
             <button id="follow-unfollow-{{ $user->id }}"
                 class="btn {{ $isFollowed ? 'btn-warning' : 'btn-primary' }}"
                 onclick="toggleFollow({{ $user->id }})">
                 {{ $isFollowed ? 'Unfollow' : 'Follow' }}
             </button>
-            <button class="btn btn-success">Message</button>
+
+            <form action="{{ route('chat.create', $user->id) }}" method="POST">
+                @csrf
+                <button class="btn btn-success" type="submit" id="message-btn1">Message</button>
+            </form>
         @else
             <a class="btn btn-warning" href="{{ route('profile.edit') }}">Edit</a>
         @endif
@@ -75,4 +79,29 @@
             })
             .catch(error => console.error('Error:', error));
     }
+
+
+    $(document).ready(function() {
+        $('#message-btn').on('click', function() {
+            var url = '/chat/create/' + userId;
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: null,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                        'content') // CSRF token for Laravel
+                },
+                success: function(response) {
+                    console.log('post req- ', response);
+                    // Optionally, handle the response or update the UI
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error sending req:', error);
+                    // Optionally, handle the error
+                }
+            });
+        });
+    });
 </script>

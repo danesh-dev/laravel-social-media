@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LikeController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\FollowerController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FollowerController;
 
 Route::get('/', [PostController::class, 'index'])->name("home");
 
@@ -41,6 +43,9 @@ Route::middleware('auth')->prefix('users/{user}')->group(function () {
     Route::get('/followings', [FollowerController::class, 'followings']);
 });
 
-Route::get("/chat", function(){
-    return view("chat");
-})->name("chat");
+Route::middleware('auth')->group(function () {
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+    Route::get('/chat/{chat}', [MessageController::class, 'show'])->name('chat.show');
+    Route::post('/chat/{chat}/messages', [MessageController::class, 'store'])->name('chat.messages.store');
+    Route::post('/chat/create/{userId}', [ChatController::class, 'createChat'])->name('chat.create');
+});
