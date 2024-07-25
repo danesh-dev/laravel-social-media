@@ -18,8 +18,6 @@ class MessageController extends Controller
         $chats = Chat::where('user1_id', auth()->id())->orWhere('user2_id', auth()->id())->get();
         $messages = $chat->messages()->with('user')->get();
 
-        // return response()->json($messages);
-
         return view('chat', compact('messages', 'chats', 'friend'));
     }
 

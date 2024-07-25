@@ -21,20 +21,20 @@
                 onclick="toggleFollow({{ $user->id }})">
                 {{ $isFollowed ? 'Unfollow' : 'Follow' }}
             </button>
-            <button class="btn btn-success"  onclick="document.getElementById('hidden-post-form').submit();"> Message</button>
+            <button class="btn btn-success" onclick="document.getElementById('hidden-post-form').submit();">
+                Message</button>
 
-            <form id="hidden-post-form" action="{{route('chat.create', $user->id)}}" method="POST" class="hidden-form">
+            <form id="hidden-post-form" action="{{ route('chat.create', $user->id) }}" method="POST"
+                class="hidden-form">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ $user->id }}">
             </form>
-
         @else
             <a class="btn btn-warning" href="{{ route('profile.edit') }}">Edit</a>
         @endif
     </div>
 </div>
 
-@vite('resources/js/app.js')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script type="module">

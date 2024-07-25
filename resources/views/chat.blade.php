@@ -26,7 +26,8 @@
                     </svg>
                 </div>
                 @if (isset($friend))
-                    <a class="my-auto text-decoration-none" href="{{route('profile.show', $friend->id)}}">{{ $friend->name }}</a>
+                    <a class="my-auto text-decoration-none"
+                        href="{{ route('profile.show', $friend->id) }}">{{ $friend->name }}</a>
                     <img class="user-profile" src="{{ asset('img/images.png') }}" alt="" class="account-profile"
                         alt="">
                 @endif
@@ -62,8 +63,8 @@
                     <div class="chat-area-footer">
                         <input type="text" placeholder="Type something here..." id="message-input" />
 
-                        <button id="send-message" class="btn btn-primary btn-lg rounded-2"> <i class="fa fa-paper-plane"
-                                aria-hidden="true"></i></button>
+                        <button id="send-btn" class="btn btn-primary btn-lg rounded-2 " disabled> <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                        {{-- <button class="btn btn-primary" id="send-btn">send</button> --}}
                     </div>
                 @endif
             </div>
@@ -76,56 +77,49 @@
 
 @vite('resources/js/app.js')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script type="module">
     let url = window.location.href;
     let urlParts = url.split('/');
     let chatId = urlParts[urlParts.length - 1];
 
-    console.log(chatId); // Output the chat ID
-
     Echo.private('chat.' + chatId)
         .listen('.MessageSent', (e) => {
-            console.log(e.message);
+            console.log("message sent");
             // Add message to the chat interface
         });
 </script>
 
 <script>
     $(document).ready(function() {
+        let url = window.location.href;
+        let urlParts = url.split('/');
+        let chatId = urlParts[urlParts.length - 1];
+
         $('#message-input').on('input', function() {
             if ($.trim($(this).val()) !== '') {
-                $('#send-message').removeAttr('disabled');
+                $('#send-btn').removeAttr('disabled');
             } else {
-                $('#send-message').attr('disabled', true);
+                $('#send-btn').attr('disabled', true);
             }
         });
-    });
 
-    $('#send-message').on('click', function() {
-        let message = $('#message-input').val();
+        $('#send-btn').on('click', function() {
+            let message = $('#message-input').val();
 
-        $.ajax({
-            url: '/chat/' + chatId + '/messages',
-            method: 'POST',
-            data: {
-                message: message,
-                _token: $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(data) {
-                $('#message-input').val('');
-                // Append message to chat interface
-            }
+            $.ajax({
+                url: '/chat/' + chatId + '/messages',
+                method: 'POST',
+                data: {
+                    message: message,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    $('#message-input').val('');
+                    // Append message to chat interface
+                }
+            });
         });
-    });
 
-
-    document.getElementById('send-message').addEventListener('click', function() {
-        let message = document.getElementById('message-input').value;
-
-        axios.post('/chat/' + chatId + '/messages', {
-            message: message,
-        }).then(response => {
-            document.getElementById('message-input').value = '';
-        });
     });
 </script>
