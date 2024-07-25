@@ -30,7 +30,7 @@ class MessageController extends Controller
             'message' => $request->message,
         ]);
 
-        broadcast(new MessageSent($message))->toOthers();
+        event(new MessageSent($message));
 
         return response()->json($message, 201);
     }

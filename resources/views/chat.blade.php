@@ -63,7 +63,8 @@
                     <div class="chat-area-footer">
                         <input type="text" placeholder="Type something here..." id="message-input" />
 
-                        <button id="send-btn" class="btn btn-primary btn-lg rounded-2 " disabled> <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                        <button id="send-btn" class="btn btn-primary btn-lg rounded-2 " disabled> <i
+                                class="fa fa-paper-plane" aria-hidden="true"></i></button>
                         {{-- <button class="btn btn-primary" id="send-btn">send</button> --}}
                     </div>
                 @endif
@@ -83,11 +84,37 @@
     let urlParts = url.split('/');
     let chatId = urlParts[urlParts.length - 1];
 
-    Echo.private('chat.' + chatId)
+    Echo.channel('chat.' + chatId)
         .listen('.MessageSent', (e) => {
-            console.log("message sent");
-            // Add message to the chat interface
+            appendMessage(e.message);
         });
+
+    function appendMessage(message) {
+        let messageHtml = `
+
+
+                            <div class="chat-msg ${message.user_id == {{ auth()->id() }} ? 'owner' : ''}">
+                <div class="chat-msg-profile">
+                    <div class="chat-msg-date">                        ${new Date(message.created_at).toLocaleTimeString()}</div>
+                </div>
+                <div class="chat-msg-content">
+                    <div class="chat-msg-text">
+                        ${message.message}
+                    </div>
+                </div>
+            </div>`;
+        $('.chat-area-main').append(messageHtml);
+
+        scrollToBottom();
+    }
+
+    function scrollToBottom() {
+        let chatAreaMain = $('.chat-area-main');
+        chatAreaMain.scrollTop(chatAreaMain.prop("scrollHeight"));
+    }
+
+    // Scroll to bottom on page load
+    scrollToBottom();
 </script>
 
 <script>
