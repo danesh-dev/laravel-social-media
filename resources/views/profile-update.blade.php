@@ -6,7 +6,7 @@
     <div class="container mt-5 col-8">
         <div class="card shadow-lg p-4">
             <h3 class="text-center text-light mb-4">Edit Account</h3>
-            <form id="profileForm" method="POST" action="{{ route('profile.update') }}">
+            <form id="profileForm" method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="form-group mt-1">
@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="row position-relative col-10 mx-auto mt-4">
-                    <button type="submit" class="btn btn-primary mt-3 d-grid gap-2" id="saveChangesBtn" >Save
+                    <button type="submit" class="btn btn-primary mt-3 d-grid gap-2" id="saveChangesBtn" disabled>Save
                         Changes</button>
                 </div>
             </form>
@@ -46,51 +46,51 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     const originalValues = {
-    //         name: document.getElementById('name').value,
-    //         username: document.getElementById('username').value,
-    //         email: document.getElementById('email').value,
-    //         bio: document.getElementById('bio').value,
-    //         image: document.getElementById('image').vlaue
-    //     };
+    document.addEventListener('DOMContentLoaded', function() {
+        const originalValues = {
+            name: document.getElementById('name').value,
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            bio: document.getElementById('bio').value,
+            image: document.getElementById('image').vlaue
+        };
 
-    //     const profileForm = document.getElementById('profileForm');
-    //     const saveChangesBtn = document.getElementById('saveChangesBtn');
+        const profileForm = document.getElementById('profileForm');
+        const saveChangesBtn = document.getElementById('saveChangesBtn');
 
-    //     profileForm.addEventListener('input', function() {
-    //         const currentValues = {
-    //             name: document.getElementById('name').value,
-    //             username: document.getElementById('username').value,
-    //             email: document.getElementById('email').value,
-    //             bio: document.getElementById('bio').value,
-    //             image: document.getElementById('image').vlaue
+        profileForm.addEventListener('input', function() {
+            const currentValues = {
+                name: document.getElementById('name').value,
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                bio: document.getElementById('bio').value,
+                image: document.getElementById('image').vlaue
 
-    //         };
+            };
 
-    //         const valuesChanged = Object.keys(originalValues).some(key => originalValues[key] !==
-    //             currentValues[key]);
+            const valuesChanged = Object.keys(originalValues).some(key => originalValues[key] !==
+                currentValues[key]);
 
-    //         saveChangesBtn.disabled = !valuesChanged;
-    //     });
+            saveChangesBtn.disabled = !valuesChanged;
+        });
 
-    //     window.deleteAccount = function() {
-    //         if (confirm('Do you really want to delete your account?')) {
-    //             $.ajax({
-    //                 url: '{{ route('profile.delete') }}',
-    //                 type: 'DELETE',
-    //                 data: {
-    //                     _token: '{{ csrf_token() }}'
-    //                 },
-    //                 success: function(result) {
-    //                     alert('Your account has been deleted.');
-    //                     window.location.href = '/';
-    //                 },
-    //                 error: function(xhr, status, error) {
-    //                     alert('There was an error deleting your account: ' + error);
-    //                 }
-    //             });
-    //         }
-    //     };
-    // });
+        window.deleteAccount = function() {
+            if (confirm('Do you really want to delete your account?')) {
+                $.ajax({
+                    url: '{{ route('profile.delete') }}',
+                    type: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(result) {
+                        alert('Your account has been deleted.');
+                        window.location.href = '/';
+                    },
+                    error: function(xhr, status, error) {
+                        alert('There was an error deleting your account: ' + error);
+                    }
+                });
+            }
+        };
+    });
 </script>

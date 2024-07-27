@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Chat;
 use App\Events\MessageSent;
 use Illuminate\Http\Request;
@@ -17,6 +18,10 @@ class MessageController extends Controller
 
         $chats = Chat::where('user1_id', auth()->id())->orWhere('user2_id', auth()->id())->get();
         $messages = $chat->messages()->with('user')->get();
+
+        foreach ($messages as $message) {
+            $message->formatted_time = Carbon::parse($message->created_at)->format('M D g:i:s A');
+        }
 
         return view('chat', compact('messages', 'chats', 'friend'));
     }

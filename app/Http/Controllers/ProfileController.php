@@ -20,7 +20,8 @@ class ProfileController extends Controller
         return view("profile", compact("user", "posts"));
     }
 
-    public function edit(){
+    public function edit()
+    {
         $user = User::findOrFail(Auth::user()->id);
         return view("profile-update", compact("user"));
     }
@@ -30,18 +31,18 @@ class ProfileController extends Controller
         $user = User::findOrFail(auth()->id());
 
         $data = [
-            'name'=> $request->name,
+            'name' => $request->name,
             'username' => $request->username,
-            'email'=> $request->email,
-            'bio'=> $request->bio,
+            'email' => $request->email,
+            'bio' => $request->bio,
         ];
-        dd($request);
 
         if ($request->hasFile('image')) {
-            dd($request->image);
             $imagePath = $request->file('image')->store('images', 'public');
             $data['image'] = $imagePath;
         }
+
+        // dd($data);
 
         $user->update($data);
 

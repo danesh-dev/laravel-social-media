@@ -1,7 +1,7 @@
 
 <div class="chat-msg owner">
     <div class="chat-msg-profile">
-        <div class="chat-msg-date">{{ $message->created_at}}</div>
+        <div class="chat-msg-date">{{ $message->formatted_time}}</div>
     </div>
     <div class="chat-msg-content">
         <div class="chat-msg-text">

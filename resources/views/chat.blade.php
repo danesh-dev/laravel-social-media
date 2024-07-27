@@ -98,7 +98,7 @@
         let messageHtml = `
             <div class="chat-msg ${message.user_id == {{ auth()->id() }} ? 'owner' : ''}">
                 <div class="chat-msg-profile">
-                    <div class="chat-msg-date">                        ${new Date(message.created_at).toLocaleTimeString()}</div>
+                    <div class="chat-msg-date">${new Date(message.created_at).toLocaleTimeString()}</div>
                 </div>
                 <div class="chat-msg-content">
                     <div class="chat-msg-text">
