@@ -32,7 +32,7 @@
                         <img class="user-profile" src="{{ asset('img/images.png') }}" alt=""
                             class="account-profile"alt="">
                     @else
-                        <img src="{{ asset('storage/' . $user->image) }}" alt="Profile Image" class="account-profile"">
+                        <img src="{{ asset('storage/' . $friend->image) }}" alt="Profile Image" class="user-profile">
                     @endif
 
                 @endif
