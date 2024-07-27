@@ -28,8 +28,13 @@
                 @if (isset($friend))
                     <a class="my-auto text-decoration-none"
                         href="{{ route('profile.show', $friend->id) }}">{{ $friend->name }}</a>
-                    <img class="user-profile" src="{{ asset('img/images.png') }}" alt="" class="account-profile"
-                        alt="">
+                    @if (empty($friend->image))
+                        <img class="user-profile" src="{{ asset('img/images.png') }}" alt=""
+                            class="account-profile"alt="">
+                    @else
+                        <img src="{{ asset('storage/' . $user->image) }}" alt="Profile Image" class="account-profile"">
+                    @endif
+
                 @endif
             </div>
         </div>
@@ -91,9 +96,7 @@
 
     function appendMessage(message) {
         let messageHtml = `
-
-
-                            <div class="chat-msg ${message.user_id == {{ auth()->id() }} ? 'owner' : ''}">
+            <div class="chat-msg ${message.user_id == {{ auth()->id() }} ? 'owner' : ''}">
                 <div class="chat-msg-profile">
                     <div class="chat-msg-date">                        ${new Date(message.created_at).toLocaleTimeString()}</div>
                 </div>

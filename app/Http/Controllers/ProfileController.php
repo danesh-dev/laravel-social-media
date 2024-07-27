@@ -16,7 +16,6 @@ class ProfileController extends Controller
     {
         $user = User::withCount(['followers', 'followings', 'posts'])->findOrFail($id);
         $posts = Post::where("user_id", $id)->get();
-        $isFollowed = $user->isFollowed();
 
         return view("profile", compact("user", "posts"));
     }
@@ -29,7 +28,22 @@ class ProfileController extends Controller
     public function update(UpdateUserRequest $request)
     {
         $user = User::findOrFail(auth()->id());
-        $user->update($request->all());
+
+        $data = [
+            'name'=> $request->name,
+            'username' => $request->username,
+            'email'=> $request->email,
+            'bio'=> $request->bio,
+        ];
+        dd($request);
+
+        if ($request->hasFile('image')) {
+            dd($request->image);
+            $imagePath = $request->file('image')->store('images', 'public');
+            $data['image'] = $imagePath;
+        }
+
+        $user->update($data);
 
         return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.');
     }

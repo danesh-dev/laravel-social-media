@@ -3,7 +3,12 @@
 @endphp
 
 <div class="profile-card">
-    <img src="https://via.placeholder.com/100" alt="Profile Image" class="profile-img mb-3">
+    @if (empty($user->image))
+        <img src="https://via.placeholder.com/100" alt="Profile Image" class="profile-img mb-3">
+    @else
+        <img src="{{ asset('storage/' . $user->image) }}" alt="Profile Image" class="profile-img mb-3">
+    @endif
+
     <h2 class="text-white">{{ '@' . $user->username }}</h2>
     <h4 class="text-secondary">{{ $user->name }}</h4>
     <p class="bio">{{ $user->bio }}</p>

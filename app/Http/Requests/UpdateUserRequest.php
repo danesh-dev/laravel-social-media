@@ -27,6 +27,7 @@ class UpdateUserRequest extends FormRequest
             'username' => 'required|string|max:255|unique:users,username,' . Auth::id(),
             'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
             'bio' => 'nullable|string|max:1000',
+            'image' => "sometimes|nullable|image|mimes:jpeg,png,jpg,gif"
         ];
     }
 }

@@ -38,7 +38,6 @@ class PostController extends Controller
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
             $data['image'] = $imagePath;
-            // dd($imagePath);
         }
 
         $post = $request->user()->posts()->create($data);

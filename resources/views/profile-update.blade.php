@@ -28,8 +28,13 @@
                     <label for="bio">Bio</label>
                     <textarea class="form-control" id="bio" name="bio">{{ old('bio', auth()->user()->bio) }}</textarea>
                 </div>
+                <div class="form-group my-3">
+                    <label for="image">Profile Image</label>
+                    <input type="file" name="image" class="form-control-file" id="image">
+                </div>
+
                 <div class="row position-relative col-10 mx-auto mt-4">
-                    <button type="submit" class="btn btn-primary mt-3 d-grid gap-2" id="saveChangesBtn" disabled>Save
+                    <button type="submit" class="btn btn-primary mt-3 d-grid gap-2" id="saveChangesBtn" >Save
                         Changes</button>
                 </div>
             </form>
@@ -41,48 +46,51 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const originalValues = {
-            name: document.getElementById('name').value,
-            username: document.getElementById('username').value,
-            email: document.getElementById('email').value,
-            bio: document.getElementById('bio').value
-        };
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const originalValues = {
+    //         name: document.getElementById('name').value,
+    //         username: document.getElementById('username').value,
+    //         email: document.getElementById('email').value,
+    //         bio: document.getElementById('bio').value,
+    //         image: document.getElementById('image').vlaue
+    //     };
 
-        const profileForm = document.getElementById('profileForm');
-        const saveChangesBtn = document.getElementById('saveChangesBtn');
+    //     const profileForm = document.getElementById('profileForm');
+    //     const saveChangesBtn = document.getElementById('saveChangesBtn');
 
-        profileForm.addEventListener('input', function() {
-            const currentValues = {
-                name: document.getElementById('name').value,
-                username: document.getElementById('username').value,
-                email: document.getElementById('email').value,
-                bio: document.getElementById('bio').value
-            };
+    //     profileForm.addEventListener('input', function() {
+    //         const currentValues = {
+    //             name: document.getElementById('name').value,
+    //             username: document.getElementById('username').value,
+    //             email: document.getElementById('email').value,
+    //             bio: document.getElementById('bio').value,
+    //             image: document.getElementById('image').vlaue
 
-            const valuesChanged = Object.keys(originalValues).some(key => originalValues[key] !==
-                currentValues[key]);
+    //         };
 
-            saveChangesBtn.disabled = !valuesChanged;
-        });
+    //         const valuesChanged = Object.keys(originalValues).some(key => originalValues[key] !==
+    //             currentValues[key]);
 
-        window.deleteAccount = function() {
-            if (confirm('Do you really want to delete your account?')) {
-                $.ajax({
-                    url: '{{ route('profile.delete') }}',
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(result) {
-                        alert('Your account has been deleted.');
-                        window.location.href = '/';
-                    },
-                    error: function(xhr, status, error) {
-                        alert('There was an error deleting your account: ' + error);
-                    }
-                });
-            }
-        };
-    });
+    //         saveChangesBtn.disabled = !valuesChanged;
+    //     });
+
+    //     window.deleteAccount = function() {
+    //         if (confirm('Do you really want to delete your account?')) {
+    //             $.ajax({
+    //                 url: '{{ route('profile.delete') }}',
+    //                 type: 'DELETE',
+    //                 data: {
+    //                     _token: '{{ csrf_token() }}'
+    //                 },
+    //                 success: function(result) {
+    //                     alert('Your account has been deleted.');
+    //                     window.location.href = '/';
+    //                 },
+    //                 error: function(xhr, status, error) {
+    //                     alert('There was an error deleting your account: ' + error);
+    //                 }
+    //             });
+    //         }
+    //     };
+    // });
 </script>
