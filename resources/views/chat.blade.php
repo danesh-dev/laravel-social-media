@@ -113,10 +113,10 @@
 
     function scrollToBottom() {
         let chatAreaMain = $('.chat-area-main');
-        chatAreaMain.scrollTop(chatAreaMain.prop("scrollHeight"));
+        // chatAreaMain.scrollTop(chatAreaMain.prop("scrollHeight"));
+        chatAreaMain.scrollTop = chatAreaMain.scrollHeight;
     }
 
-    // Scroll to bottom on page load
     scrollToBottom();
 </script>
 
