@@ -14,10 +14,13 @@ Chat Template with **Dark Theme**.
 Create, Remove, Like or UnLike Posts.
 You can create posts with or without images !
 
+![posts](https://github.com/danesh-dev/laravel-social-media/blob/main/github%20images/posts.png)
+
 ### Follow :
 You can follow other users and start a chat with them.
 
-![posts](https://github.com/danesh-dev/laravel-social-media/blob/main/github%20images/posts.png)
+![profile](https://github.com/danesh-dev/laravel-social-media/blob/main/github%20images/profile.png)
+
 
 ### Database :
 We Have Used PostgreSQL in this app (you can modify `.env` or `docker-compose.yml` and change it to MySQL).
