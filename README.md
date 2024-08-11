@@ -31,7 +31,7 @@ We Have Used PostgreSQL in this app (you can modify `.env` or `docker-compose.ym
 
 ##### Method 2 :
 - First, you need to install dependancies: `compose install`
-- copy `.env.example` to `.env` , and modify your database inforamtios.
+- copy `.env.example` to `.env` , and modify your database creadentials.
 - `php artisan migrate`
 - `php artisan serve`
 - `php artisan reverb:start`
